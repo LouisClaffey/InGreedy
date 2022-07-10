@@ -143,7 +143,7 @@ export default function IngredientsTable() {
     e.preventDefault();
     axios
       .post("http://localhost:8080/recipes", recipe)
-      .then((res) => console.log(res + " louis is cool"));
+      .then(axios.get("http://localhost:8080/newrecipes"));
   };
 
   // useEffect(() => {}, [isChecked]);

@@ -22,6 +22,17 @@ public class RecipeController {
         return service.listAll();
     }
 
+    @GetMapping(path = "/newrecipes")
+    public List<Recipes> listReverse(){
+        return service.listAllReverse();
+    }
+
+    @DeleteMapping(path ="/newrecipes")
+    public List<Recipes> theNewList(){
+        service.delete();
+        return service.listAll();
+    }
+
     @PostMapping(path = "/recipes")
     public void add(@RequestBody Recipes recipe){
         service.save(recipe);

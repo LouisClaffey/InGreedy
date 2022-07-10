@@ -3,20 +3,31 @@ import "../App.css";
 import { Button, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { Grid } from "@mui/material";
+import axios from "axios";
 import RecipeServiceGet from "../api/RecipeServiceGet";
 
 export default function Recipe() {
   const [recipes, setRecipes] = useState();
   const [clicked, setClicked] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
 
   useEffect(() => {
     if (clicked === true) {
-      RecipeServiceGet.execute().then((response) => {
+      axios.get("http://localhost:8080/newrecipes").then((response) => {
         const recipeResponse = response.data;
         setRecipes(recipeResponse);
       });
     }
   }, [clicked]);
+
+  useEffect(() => {
+    if (clicked === true) {
+      axios.delete("http://localhost:8080/newrecipes").then((response) => {
+        const recipeResponse = response.data;
+        setRecipes(recipeResponse);
+      });
+    }
+  }, [deleteClicked]);
 
   console.log(clicked);
 
@@ -24,6 +35,12 @@ export default function Recipe() {
     <>
       <Button variant="contained" onClick={() => setClicked(!clicked)}>
         Click to see Recipes
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => setDeleteClicked(!deleteClicked)}
+      >
+        Click to delete recipe
       </Button>
       <Container>
         {recipes &&
