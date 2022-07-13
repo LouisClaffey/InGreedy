@@ -30,7 +30,7 @@ public class RecipeController {
     @DeleteMapping(path ="/newrecipes")
     public List<Recipes> theNewList(){
         service.delete();
-        return service.listAll();
+        return service.listAllReverse();
     }
 
     @PostMapping(path = "/recipes")

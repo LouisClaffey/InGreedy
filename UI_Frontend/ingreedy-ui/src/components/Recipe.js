@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import { Button, Typography } from "@mui/material";
+import { Button, dividerClasses, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { Grid } from "@mui/material";
 import axios from "axios";
@@ -21,15 +21,13 @@ export default function Recipe() {
   }, [clicked]);
 
   useEffect(() => {
-    if (clicked === true) {
+    if (deleteClicked === true) {
       axios.delete("http://localhost:8080/newrecipes").then((response) => {
         const recipeResponse = response.data;
         setRecipes(recipeResponse);
       });
     }
   }, [deleteClicked]);
-
-  console.log(clicked);
 
   return (
     <>

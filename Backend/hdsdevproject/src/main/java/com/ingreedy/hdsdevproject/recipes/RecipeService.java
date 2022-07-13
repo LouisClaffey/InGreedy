@@ -23,7 +23,9 @@ public class RecipeService {
     }
 
     public List<Recipes> delete(){
+
         List<Recipes> theList =  repo.findAll();
+
         if(theList != null) {
             Integer max = 0;
 
@@ -37,7 +39,7 @@ public class RecipeService {
             repo.deleteById(max);
         }
 
-        return repo.findAll();
+        return theList;
     }
 
     public void save (Recipes recipe){
