@@ -11,10 +11,16 @@ import TextField from "@mui/material/TextField";
 import TextBoxes from "./TextBox";
 import { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { Grid } from "@mui/material";
+import { Routes, Route, Link } from "react-router-dom";
+import RegisteredLayout from "../Layouts/RegisteredLayout";
+import { ThemeProvider } from "@emotion/react";
+import AppBar from "@mui/material/AppBar";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Toolbar } from "@mui/material";
 
 export default function IngredientsTable() {
   const [formValue, setFormValue] = useState({
@@ -74,6 +80,14 @@ export default function IngredientsTable() {
 
   return (
     <>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            InGreedy
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <form>
         <Container maxWidth="sm">
           <Box
@@ -103,7 +117,6 @@ export default function IngredientsTable() {
             <FormControl>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                // component="legend"
                 style={{ justifyContent: "left", paddingTop: 10 }}
               >
                 Grains
@@ -148,7 +161,6 @@ export default function IngredientsTable() {
             <FormControl>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                // component="legend"
                 style={{ justifyContent: "left", paddingTop: 10 }}
               >
                 Proteins
@@ -193,7 +205,6 @@ export default function IngredientsTable() {
             <FormControl>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                // component="legend"
                 style={{ justifyContent: "left", paddingTop: 10 }}
               >
                 Vegtables
@@ -238,7 +249,6 @@ export default function IngredientsTable() {
             <FormControl>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                // component="legend"
                 style={{ justifyContent: "left", paddingTop: 10 }}
               >
                 Dairies
@@ -345,28 +355,16 @@ export default function IngredientsTable() {
               >
                 Click to submit recipe
               </Button>
-              <Button variant="contained" onClick={() => setClicked(!clicked)}>
-                Click to see Recipes
-              </Button>
+              <Link to="/users">
+                <Button variant="contained">Click to see recipes</Button>
+              </Link>
+              <Routes>
+                <Route exact path="/users" element={<RegisteredLayout />} />
+              </Routes>
             </div>
           </Box>
         </Container>
       </form>
-      <Container>
-        {recipes &&
-          recipes.map((recipes) => (
-            <Grid key={recipes.id}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Typography variant="h3">
-                  {recipes.title.toLowerCase()}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={8} lg={9} style={{ paddingBottom: 20 }}>
-                <Typography>{recipes.instructions}</Typography>
-              </Grid>
-            </Grid>
-          ))}
-      </Container>
     </>
   );
 }
