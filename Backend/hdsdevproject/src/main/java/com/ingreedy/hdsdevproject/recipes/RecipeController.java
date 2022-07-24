@@ -16,30 +16,30 @@ public class RecipeController {
     @Autowired
     private RecipeService service;
     private Recipes recipe;
+//
+//    @GetMapping(path = "users/recipes")
+//    public List<Recipes> list(){
+//        return service.listAll();
+//    }
 
-    @GetMapping(path = "/recipes")
-    public List<Recipes> list(){
-        return service.listAll();
-    }
-
-    @GetMapping(path = "/newrecipes")
+    @GetMapping(path = "users/home")
     public List<Recipes> listReverse(){
         return service.listAllReverse();
     }
 
-    @DeleteMapping(path ="/newrecipes")
+    @DeleteMapping(path ="users/home")
     public List<Recipes> theNewList(){
         service.delete();
         return service.listAllReverse();
     }
 
-    @PostMapping(path = "/recipes")
+    @PostMapping(path = "recipes")
     public void add(@RequestBody Recipes recipe){
         service.save(recipe);
     }
 
 
-    @GetMapping(path = "/recipes/{id}")
+    @GetMapping(path = "users/recipes/{id}")
     public ResponseEntity<Recipes> get(@PathVariable Integer id){
         try {
             Recipes recipe = service.get(id);

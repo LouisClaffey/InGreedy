@@ -9,7 +9,7 @@ export default function Recipe() {
   const [recipes, setRecipes] = useState();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/newrecipes").then((response) => {
+    axios.get("http://localhost:8080/users/home").then((response) => {
       const recipeResponse = response.data;
       setRecipes(recipeResponse);
     });

@@ -11,9 +11,10 @@ import {
   Container,
 } from "@mui/material";
 import { Routes, Route, Link } from "react-router-dom";
-import RegisteredLayout from "./RegisteredLayout";
+import MainHomepage from "./Homepage";
 import UnregisteredLayout from "./UnregisteredLayout";
 import { flexbox } from "@mui/system";
+import LoginPage from "../components/LoginPage";
 
 export default function MainLayout() {
   return (
@@ -34,14 +35,15 @@ export default function MainLayout() {
             </Link>
           </Grid>
           <Grid item xs={6} md={6}>
-            <Link to="/users">
+            <Link to="/login">
               <Button variant="contained">Login</Button>
             </Link>
           </Grid>
         </Grid>
       </Container>
       <Routes>
-        <Route exact path="/users" element={<RegisteredLayout />} />
+        <Route exact path="/users" element={<MainHomepage />} />
+        <Route exact path="/login" element={<LoginPage />} />
         <Route exact path="/find-recipe" element={<UnregisteredLayout />} />
       </Routes>
     </main>

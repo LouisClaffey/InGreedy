@@ -8,7 +8,7 @@ import Recipe from "../components/RecipeHomepage";
 import IngredientsTable from "../components/IngredientsTable";
 import { NavLink, Routes, Route } from "react-router-dom";
 
-export default function MainLayout() {
+export default function MainHomepage() {
   return (
     <main>
       <CssBaseline />

@@ -12,8 +12,6 @@ import TextBoxes from "./TextBox";
 import { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
 import axios from "axios";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import { Grid } from "@mui/material";
 import { Routes, Route, Link } from "react-router-dom";
 import MainHomepage from "../Layouts/Homepage";
@@ -22,11 +20,103 @@ import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Toolbar } from "@mui/material";
 
-export default function IngredientsTable() {
+export default function IngredientsTable2() {
   const [formValue, setFormValue] = useState({
     recipeTitle: "",
     recipeInstructions: "",
   });
+
+  const [state, setState] = React.useState({
+    pasta: false,
+    rice: false,
+    noodles: false,
+    quinoa: false,
+    flour: false,
+    chicken: false,
+    salmon: false,
+    beef: false,
+    pork: false,
+    beans: false,
+    broccoli: false,
+    potato: false,
+    onion: false,
+    carrot: false,
+    turnip: false,
+    yogurt: false,
+    crèmefraîche: false,
+    cream: false,
+    cheese: false,
+    milk: false,
+    tomato: false,
+    apple: false,
+    strawberry: false,
+    banana: false,
+    lemon: false,
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const {
+    pasta,
+    rice,
+    noodles,
+    quinoa,
+    flour,
+    chicken,
+    salmon,
+    beef,
+    pork,
+    beans,
+    broccoli,
+    potato,
+    onion,
+    carrot,
+    turnip,
+    yogurt,
+    crèmefraîche,
+    cream,
+    cheese,
+    milk,
+    tomato,
+    apple,
+    strawberry,
+    banana,
+    lemon,
+  } = state;
+
+  const error =
+    [
+      pasta,
+      rice,
+      noodles,
+      quinoa,
+      flour,
+      chicken,
+      salmon,
+      beef,
+      pork,
+      beans,
+      broccoli,
+      potato,
+      onion,
+      carrot,
+      turnip,
+      yogurt,
+      crèmefraîche,
+      cream,
+      cheese,
+      milk,
+      tomato,
+      apple,
+      strawberry,
+      banana,
+      lemon,
+    ].filter((v) => v).length !== 2;
 
   const handleChangeTextBoxes = (event) => {
     const { name, value } = event.target;
@@ -45,8 +135,20 @@ export default function IngredientsTable() {
   const [fruits, setFruit] = useState("");
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [recipes, setRecipes] = useState();
   const [clicked, setClicked] = useState(false);
   const [submit, setSubmit] = useState(false);
+
+  useEffect(() => {
+    if (clicked === false) {
+      axios.get("http://localhost:8080/newrecipes").then((response) => {
+        const recipeResponse = response.data;
+        setRecipes(recipeResponse);
+      });
+    }
+  }, [clicked]);
+
+  console.log(clicked);
 
   const recipe = {
     title,
@@ -98,48 +200,68 @@ export default function IngredientsTable() {
               />
             </div>
           </Box>
-          <Box
-            onChange={(e) => setGrains(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
-          >
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
             <FormControl>
-              <FormLabel
-                id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
-              >
+              <FormLabel style={{ justifyContent: "left", paddingTop: 10 }}>
                 Grains
               </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
+              <FormGroup row>
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={pasta}
+                      onChange={handleChange}
+                      name="pasta"
+                    />
+                  }
                   label="pasta"
                   value="pasta"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={rice}
+                      onChange={handleChange}
+                      name="rice"
+                    />
+                  }
                   label="rice"
                   value="rice"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={noodles}
+                      onChange={handleChange}
+                      name="noodles"
+                    />
+                  }
                   label="noodles"
                   value="noodles"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={quinoa}
+                      onChange={handleChange}
+                      name="quinoa"
+                    />
+                  }
                   label="quinoa"
                   value="quinoa"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={flour}
+                      onChange={handleChange}
+                      name="flour"
+                    />
+                  }
                   label="flour"
                   value="flour"
                 />
-              </RadioGroup>
+              </FormGroup>
             </FormControl>
           </Box>
           <Box
@@ -147,43 +269,66 @@ export default function IngredientsTable() {
             sx={{ display: "flex", flexDirection: "row" }}
           >
             <FormControl>
-              <FormLabel
-                id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
-              >
+              <FormLabel style={{ justifyContent: "left", paddingTop: 10 }}>
                 Proteins
               </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
+              <FormGroup row>
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={chicken}
+                      onChange={handleChange}
+                      name="chicken"
+                    />
+                  }
                   label="chicken"
                   value="chicken"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={salmon}
+                      onChange={handleChange}
+                      name="salmon"
+                    />
+                  }
                   label="salmon"
                   value="salmon"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={beef}
+                      onChange={handleChange}
+                      name="beef"
+                    />
+                  }
                   label="beef"
                   value="beef"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={pork}
+                      onChange={handleChange}
+                      name="pork"
+                    />
+                  }
                   label="pork"
                   value="pork"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={beans}
+                      onChange={handleChange}
+                      name="beans"
+                    />
+                  }
                   label="beans"
                   value="beans"
                 />
-              </RadioGroup>
+              </FormGroup>
             </FormControl>
           </Box>
           <Box
@@ -191,43 +336,66 @@ export default function IngredientsTable() {
             sx={{ display: "flex", flexDirection: "row" }}
           >
             <FormControl>
-              <FormLabel
-                id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
-              >
+              <FormLabel style={{ justifyContent: "left", paddingTop: 10 }}>
                 Vegtables
               </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
+              <FormGroup row>
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={broccoli}
+                      onChange={handleChange}
+                      name="broccoli"
+                    />
+                  }
                   label="broccoli"
                   value="broccoli"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={potato}
+                      onChange={handleChange}
+                      name="potato"
+                    />
+                  }
                   label="potato"
                   value="potato"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={onion}
+                      onChange={handleChange}
+                      name="onion"
+                    />
+                  }
                   label="onion"
                   value="onion"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={carrot}
+                      onChange={handleChange}
+                      name="carrot"
+                    />
+                  }
                   label="carrot"
                   value="carrot"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={turnip}
+                      onChange={handleChange}
+                      name="turnip"
+                    />
+                  }
                   label="turnip"
                   value="turnip"
                 />
-              </RadioGroup>
+              </FormGroup>
             </FormControl>
           </Box>
           <Box
@@ -235,43 +403,66 @@ export default function IngredientsTable() {
             sx={{ display: "flex", flexDirection: "row" }}
           >
             <FormControl>
-              <FormLabel
-                id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
-              >
+              <FormLabel style={{ justifyContent: "left", paddingTop: 10 }}>
                 Dairies
               </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
+              <FormGroup row>
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={yogurt}
+                      onChange={handleChange}
+                      name="yogurt"
+                    />
+                  }
                   label="yogurt"
                   value="yogurt"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={crèmefraîche}
+                      onChange={handleChange}
+                      name="crèmefraîche"
+                    />
+                  }
                   label="crèmefraîche"
                   value="crèmefraîche"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={cream}
+                      onChange={handleChange}
+                      name="cream"
+                    />
+                  }
                   label="cream"
                   value="cream"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={cheese}
+                      onChange={handleChange}
+                      name="cheese"
+                    />
+                  }
                   label="cheese"
                   value="cheese"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={milk}
+                      onChange={handleChange}
+                      name="milk"
+                    />
+                  }
                   label="milk"
                   value="milk"
                 />
-              </RadioGroup>
+              </FormGroup>
             </FormControl>
           </Box>
           <Box
@@ -280,46 +471,70 @@ export default function IngredientsTable() {
           >
             <FormControl>
               <FormLabel
-                id="demo-row-radio-buttons-group-label"
                 // component="legend"
                 style={{ justifyContent: "left", paddingTop: 10 }}
               >
                 Fruits
               </FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
+              <FormGroup row>
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={tomato}
+                      onChange={handleChange}
+                      name="tomato"
+                    />
+                  }
                   label="tomato"
                   value="tomato"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={apple}
+                      onChange={handleChange}
+                      name="apple"
+                    />
+                  }
                   label="apple"
                   value="apple"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={strawberry}
+                      onChange={handleChange}
+                      name="strawberry"
+                    />
+                  }
                   label="strawberry"
                   value="strawberry"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={banana}
+                      onChange={handleChange}
+                      name="banana"
+                    />
+                  }
                   label="banana"
                   value="banana"
                 />
                 <FormControlLabel
-                  control={<Radio />}
+                  control={
+                    <Checkbox
+                      checked={lemon}
+                      onChange={handleChange}
+                      name="lemon"
+                    />
+                  }
                   label="lemon"
                   value="lemon"
                 />
-              </RadioGroup>
+              </FormGroup>
             </FormControl>
           </Box>
-
           <Box>
             <div onChange={(e) => setInstructions(e.target.value)}>
               <TextField
