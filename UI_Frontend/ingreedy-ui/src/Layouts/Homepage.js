@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Typography, createTheme, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
-import Recipe from "../components/RecipeHomepage";
+import Recipes from "../components/RecipeHomepage";
 import IngredientsTable from "../components/IngredientsTable";
 import { NavLink, Routes, Route } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export default function MainHomepage() {
           </NavLink>
         </Toolbar>
       </AppBar>
-      <Recipe></Recipe>
+      <Recipes></Recipes>
       <Routes>
         <Route exact path="/users/submit" element={<IngredientsTable />} />
       </Routes>

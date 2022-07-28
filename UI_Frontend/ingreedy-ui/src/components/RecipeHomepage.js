@@ -4,15 +4,22 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { Grid } from "@mui/material";
 import axios from "axios";
+import { ControlCameraOutlined } from "@material-ui/icons";
+import AuthenticationService from "../Authentication/AuthenticationService";
 
-export default function Recipe() {
+export default function Recipes() {
   const [recipes, setRecipes] = useState();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/users/home").then((response) => {
-      const recipeResponse = response.data;
-      setRecipes(recipeResponse);
-    });
+    axios
+      .get("http://localhost:8080/users/home")
+      .then((response) => {
+        const recipeResponse = response.data;
+        setRecipes(recipeResponse);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

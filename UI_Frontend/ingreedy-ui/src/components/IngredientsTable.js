@@ -8,14 +8,13 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import { Container } from "@mui/system";
 import TextField from "@mui/material/TextField";
-import TextBoxes from "./TextBox";
 import { useState, useEffect } from "react";
 import { Button, Typography } from "@mui/material";
 import axios from "axios";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { Grid } from "@mui/material";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import MainHomepage from "../Layouts/Homepage";
 import { ThemeProvider } from "@emotion/react";
 import AppBar from "@mui/material/AppBar";
@@ -38,6 +37,8 @@ export default function IngredientsTable() {
     });
   };
 
+  const navigate = useNavigate();
+
   const [grains, setGrains] = useState("");
   const [proteins, setProteins] = useState("");
   const [vegetables, setVeg] = useState("");
@@ -45,8 +46,6 @@ export default function IngredientsTable() {
   const [fruits, setFruit] = useState("");
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [clicked, setClicked] = useState(false);
-  const [submit, setSubmit] = useState(false);
 
   const recipe = {
     title,
@@ -60,8 +59,9 @@ export default function IngredientsTable() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/recipes", recipe);
-    setSubmit(true);
+    axios
+      .post("http://localhost:8080/recipes", recipe)
+      .then(() => navigate("/users"));
   };
 
   const { recipeTitle, recipeInstructions } = formValue;
@@ -336,19 +336,9 @@ export default function IngredientsTable() {
           </Box>
           <Box>
             <div>
-              <Button
-                variant="contained"
-                onClick={handleClick}
-                disabled={submit}
-              >
+              <Button variant="contained" onClick={handleClick}>
                 Click to submit recipe
               </Button>
-              <Link to="/users">
-                <Button variant="contained">Click to see recipes</Button>
-              </Link>
-              <Routes>
-                <Route exact path="/users" element={<MainHomepage />} />
-              </Routes>
             </div>
           </Box>
         </Container>
