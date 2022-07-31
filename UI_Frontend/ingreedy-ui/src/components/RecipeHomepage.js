@@ -4,8 +4,6 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { Grid } from "@mui/material";
 import axios from "axios";
-import { ControlCameraOutlined } from "@material-ui/icons";
-import AuthenticationService from "../Authentication/AuthenticationService";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState();

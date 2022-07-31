@@ -83,14 +83,14 @@ public class JWTWebSecurityConfig {
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .and()
                 .ignoring()
-                .antMatchers(HttpMethod.GET, "/")
+                .antMatchers(HttpMethod.GET, "/**")
                 .and().ignoring()
                 .antMatchers("/h2-console/**/**");
     }
 }
 
 
-/** the below file works the same way as the above file, however the student decided to use a more up-to-date, component based
+/** the below class works the same way as the above, however the student decided to use a more up-to-date, component based
  * framework for security, as recommended by Spring developers. Extending the WebSecurityConfigurerAdapter abstract class is now deprecated in
  * the the later versions of Spring (>=2.7.0)
  * */

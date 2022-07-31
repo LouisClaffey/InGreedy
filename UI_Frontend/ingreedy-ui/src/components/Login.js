@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import AuthenticationService from "../Authentication/AuthenticationService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { red } from "@material-ui/core/colors";
 
 export default function LoginComponent(props) {
   const navigate = useNavigate();

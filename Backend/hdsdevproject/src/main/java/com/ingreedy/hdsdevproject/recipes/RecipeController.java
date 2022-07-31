@@ -16,7 +16,8 @@ public class RecipeController {
     @Autowired
     private RecipeService service;
     private Recipes recipe;
-//
+
+/** return oldest first */
 //    @GetMapping(path = "users/recipes")
 //    public List<Recipes> list(){
 //        return service.listAll();
@@ -39,14 +40,14 @@ public class RecipeController {
     }
 
 
-    @GetMapping(path = "users/recipes/{id}")
-    public ResponseEntity<Recipes> get(@PathVariable Integer id){
-        try {
-            Recipes recipe = service.get(id);
-            return new ResponseEntity<Recipes>(recipe, HttpStatus.OK);
-        } catch(NoSuchElementException e){
-            return new ResponseEntity<Recipes>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping(path = "users/recipes/{id}")
+//    public ResponseEntity<Recipes> get(@PathVariable Integer id){
+//        try {
+//            Recipes recipe = service.get(id);
+//            return new ResponseEntity<Recipes>(recipe, HttpStatus.OK);
+//        } catch(NoSuchElementException e){
+//            return new ResponseEntity<Recipes>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 
 }

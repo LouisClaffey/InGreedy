@@ -4,21 +4,11 @@ import { API_URL } from "./../Constants";
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = "authenticatedUser";
 
 class AuthenticationService {
-  executeBasicAuthenticationService(username, password) {
-    return axios.get(`${API_URL}/basicauth`, {
-      headers: { authorization: this.createBasicAuthToken(username, password) },
-    });
-  }
-
   executeJwtAuthenticationService(username, password) {
     return axios.post(`${API_URL}/authenticate`, {
       username,
       password,
     });
-  }
-
-  createBasicAuthToken(username, password) {
-    return "Basic " + window.btoa(username + ":" + password);
   }
 
   registerSuccessfulLogin(username, password) {
@@ -60,7 +50,23 @@ class AuthenticationService {
     });
   }
 
+  // The below functions were used before Jwt was integrated in th back-end
+
+  // executeBasicAuthenticationService(username, password) {
+  //   return axios.get(`${API_URL}/basicauth`, {
+  //     headers: { authorization: this.createBasicAuthToken(username, password) },
+  //   });
+  // }
+
+  // createBasicAuthToken(username, password) {
+  //   return "Basic " + window.btoa(username + ":" + password);
+  // }
+
+  // hard coding of username and password - to match with spring security
+  // passwords seen in applications.properties
+
   // setupAxiosInterceptors2() {
+
   //   let username = "ingreedy";
   //   let password = "test";
 

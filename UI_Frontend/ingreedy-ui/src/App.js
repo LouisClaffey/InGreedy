@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
-import IngredientsTable from "./components/IngredientsTable";
-import RecipeHomepage from "./components/RecipeHomepage";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
-import Box from "@mui/material/Box";
 import Login from "./components/Login";
-import MainHomepage from "./Layouts/Homepage";
-import UnregisteredLayout from "./Layouts/UnregisteredLayout";
+import MainHomepage from "./Layouts/MainHomepage";
 import { Route } from "react-router-dom";
+import FindRecipe from "./Layouts/FindRecipe";
+import SubmitPage from "./Layouts/SubmitPage";
+import FoundRecipes from "./Layouts/FoundRecipes";
 
 function App({ history }) {
   return (
@@ -16,8 +15,9 @@ function App({ history }) {
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route path="/users" element={<MainHomepage />} />
-          <Route path="/find-recipe" element={<UnregisteredLayout />} />
-          <Route path="/users/submit" element={<IngredientsTable />} />
+          <Route path="/users/find" element={<FindRecipe />} />
+          <Route path="/users/submit" element={<SubmitPage />} />
+          <Route path="/users/foundrecipes" element={<FoundRecipes />} />
         </Routes>
       </Router>
     </>
