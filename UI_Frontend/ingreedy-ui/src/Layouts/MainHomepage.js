@@ -22,6 +22,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import Recipes from "../components/RecipeHomepage";
+import Grid from "@mui/material/Grid";
 
 const drawerWidth = 240;
 
@@ -114,53 +115,55 @@ export default function MainHomepage() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
+      <Grid container item sm={2}>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <ListItem>
-            <ListItemButton onClick={navToSubmit}>
-              <ListItemIcon>{<DinnerDiningIcon />}</ListItemIcon>
-              <ListItemText primary="Submit Recipe" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton onClick={navToFind}>
-              <ListItemIcon>{<SearchIcon />}</ListItemIcon>
-              <ListItemText primary="Find Recipe" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem>
-            <ListItemButton onClick={navToHome}>
-              <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Drawer>
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemButton onClick={navToSubmit}>
+                <ListItemIcon>{<DinnerDiningIcon />}</ListItemIcon>
+                <ListItemText primary="Submit Recipe" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={navToFind}>
+                <ListItemIcon>{<SearchIcon />}</ListItemIcon>
+                <ListItemText primary="Find Recipe" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemButton onClick={navToHome}>
+                <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Drawer>
+      </Grid>
       <Main open={open}>
         <DrawerHeader />
         <Recipes></Recipes>

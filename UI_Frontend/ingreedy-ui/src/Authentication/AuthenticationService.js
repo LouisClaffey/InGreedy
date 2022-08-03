@@ -50,7 +50,7 @@ class AuthenticationService {
     });
   }
 
-  // The below functions were used before Jwt was integrated in th back-end
+  // The below functions were used before Jwt was integrated in the back-end
 
   // executeBasicAuthenticationService(username, password) {
   //   return axios.get(`${API_URL}/basicauth`, {

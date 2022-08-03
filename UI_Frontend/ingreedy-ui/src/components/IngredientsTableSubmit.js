@@ -20,6 +20,11 @@ import { ThemeProvider } from "@emotion/react";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Toolbar } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Alert } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
 export default function IngredientsTableSubmit() {
   const [formValue, setFormValue] = useState({
@@ -37,6 +42,11 @@ export default function IngredientsTableSubmit() {
     });
   };
 
+  const Item = styled(Paper)(({ theme }) => ({
+    padding: theme.spacing(1),
+    textAlign: "center",
+  }));
+
   const navigate = useNavigate();
 
   const [grains, setGrains] = useState("");
@@ -46,6 +56,7 @@ export default function IngredientsTableSubmit() {
   const [fruits, setFruit] = useState("");
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [validated, setValidated] = useState(false);
 
   const recipe = {
     title,
@@ -64,40 +75,87 @@ export default function IngredientsTableSubmit() {
       .then(() => navigate("/users"));
   };
 
+  useEffect(() => {
+    if (
+      grains.length > 0 &&
+      proteins.length > 0 &&
+      vegetables.length > 0 &&
+      dairies.length > 0 &&
+      fruits.length > 0
+    ) {
+      setValidated(true);
+    }
+  }, [grains, proteins, vegetables, dairies, fruits]);
+
   const { recipeTitle, recipeInstructions } = formValue;
+
+  const formik = useFormik({
+    initialValues: {
+      recipeTitle: "",
+      recipeInstructions: "",
+    },
+    validationSchema: Yup.object({
+      recipeTitle: Yup.string()
+        .max(100, "Must be less than 100 characters")
+        .min(5, "Must be 5 characters or more")
+        .required("Required"),
+      recipeInstructions: Yup.string()
+        .min(100, "Instructions must be over 100 characters")
+        .required("Required"),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <Container maxWidth="sm">
-          <Box
-            component="form"
+          <Grid
+            item
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+              "& .MuiTextField-root": { m: 0, width: "100%" },
             }}
-            noValidate
-            autoComplete="off"
           >
             <div onChange={(e) => setTitle(e.target.value)}>
               <TextField
                 id="outlined-multiline-flexible"
-                label="Multiline"
+                label="Recipe Title"
                 multiline
                 name="recipeTitle"
                 maxRows={4}
                 value={recipeTitle}
                 onChange={handleChangeTextBoxes}
+                {...formik.getFieldProps("recipeTitle")}
               />
             </div>
-          </Box>
-          <Box
-            onChange={(e) => setGrains(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
+            {formik.touched.recipeTitle && formik.errors.recipeTitle ? (
+              <Alert severity="error">{formik.errors.recipeTitle}</Alert>
+            ) : null}
+          </Grid>
+          <Typography
+            variant="subtitle2"
+            style={{ textAlign: "center", opacity: 0.5, marginTop: 10 }}
           >
-            <FormControl>
+            Choose an option from each category
+          </Typography>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ display: "flex", flexDirection: "row" }}
+          >
+            <FormControl onChange={(e) => setGrains(e.target.value)}>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
+                style={{
+                  justifyContent: "left",
+                  paddingTop: 10,
+                  color: "#1976d2",
+                }}
               >
                 Grains
               </FormLabel>
@@ -105,43 +163,84 @@ export default function IngredientsTableSubmit() {
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
+                style={{ textAlign: "center" }}
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="pasta"
-                  value="pasta"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="rice"
-                  value="rice"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="noodles"
-                  value="noodles"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="quinoa"
-                  value="quinoa"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="flour"
-                  value="flour"
-                />
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      value="pasta"
+                      label="pasta"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="rice"
+                      value="rice"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="oats"
+                      value="oats"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="quinoa"
+                      value="quinoa"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="flour"
+                      value="flour"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="none"
+                      value="none"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
               </RadioGroup>
             </FormControl>
-          </Box>
-          <Box
-            onChange={(e) => setProteins(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            <FormControl>
+            <FormControl onChange={(e) => setProteins(e.target.value)}>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
+                style={{
+                  justifyContent: "left",
+                  paddingTop: 10,
+                  color: "#1976d2",
+                }}
               >
                 Proteins
               </FormLabel>
@@ -150,86 +249,166 @@ export default function IngredientsTableSubmit() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="chicken"
-                  value="chicken"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="salmon"
-                  value="salmon"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="beef"
-                  value="beef"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="pork"
-                  value="pork"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="beans"
-                  value="beans"
-                />
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="fish"
+                      value="fish"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="beef"
+                      value="beef"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="pork"
+                      value="pork"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="eggs"
+                      value="eggs"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="chicken"
+                      value="chicken"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="none"
+                      value="none"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
               </RadioGroup>
             </FormControl>
-          </Box>
-          <Box
-            onChange={(e) => setVeg(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            <FormControl>
+            <FormControl onChange={(e) => setVeg(e.target.value)}>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
+                style={{
+                  justifyContent: "left",
+                  paddingTop: 10,
+                  color: "#1976d2",
+                }}
               >
-                Vegtables
+                Vegetables
               </FormLabel>
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="broccoli"
-                  value="broccoli"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="potato"
-                  value="potato"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="onion"
-                  value="onion"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="carrot"
-                  value="carrot"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="turnip"
-                  value="turnip"
-                />
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="broccoli"
+                      value="broccoli"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="potato"
+                      value="potato"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="onion"
+                      value="onion"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="carrot"
+                      value="carrot"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="turnip"
+                      value="turnip"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="none"
+                      value="none"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
               </RadioGroup>
             </FormControl>
-          </Box>
-          <Box
-            onChange={(e) => setDairy(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            <FormControl>
+            <FormControl onChange={(e) => setDairy(e.target.value)}>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                style={{ justifyContent: "left", paddingTop: 10 }}
+                style={{
+                  justifyContent: "left",
+                  paddingTop: 10,
+                  color: "#1976d2",
+                }}
               >
                 Dairies
               </FormLabel>
@@ -238,43 +417,82 @@ export default function IngredientsTableSubmit() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="yogurt"
-                  value="yogurt"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="crèmefraîche"
-                  value="crèmefraîche"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="cream"
-                  value="cream"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="cheese"
-                  value="cheese"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="milk"
-                  value="milk"
-                />
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="yogurt"
+                      value="yogurt"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="milk"
+                      value="milk"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="cream"
+                      value="cream"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="cheese"
+                      value="cheese"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="butter"
+                      value="butter"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="none"
+                      value="none"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
               </RadioGroup>
             </FormControl>
-          </Box>
-          <Box
-            onChange={(e) => setFruit(e.target.value)}
-            sx={{ display: "flex", flexDirection: "row" }}
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            <FormControl>
+            <FormControl onChange={(e) => setFruit(e.target.value)}>
               <FormLabel
                 id="demo-row-radio-buttons-group-label"
-                // component="legend"
-                style={{ justifyContent: "left", paddingTop: 10 }}
+                style={{
+                  justifyContent: "left",
+                  paddingTop: 10,
+                  color: "#1976d2",
+                }}
               >
                 Fruits
               </FormLabel>
@@ -283,56 +501,116 @@ export default function IngredientsTableSubmit() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="tomato"
-                  value="tomato"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="apple"
-                  value="apple"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="strawberry"
-                  value="strawberry"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="banana"
-                  value="banana"
-                />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="lemon"
-                  value="lemon"
-                />
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="avocado"
+                      value="avocado"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="tomato"
+                      value="tomato"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="berries"
+                      value="berries"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="banana"
+                      value="banana"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="citrus"
+                      value="citrus"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
+                <Grid item md={2} sm={4} xs={6}>
+                  <Item>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="none"
+                      value="none"
+                      labelPlacement="top"
+                    />
+                  </Item>
+                </Grid>
               </RadioGroup>
             </FormControl>
-          </Box>
-
-          <Box>
+          </Grid>
+          <Grid
+            item
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              "& .MuiTextField-root": {
+                marginTop: 3,
+                width: "100%",
+              },
+            }}
+          >
             <div onChange={(e) => setInstructions(e.target.value)}>
               <TextField
                 id="outlined-multiline-static"
-                label="Multiline2"
+                label="Instructions"
                 multiline
                 name="recipeInstructions"
                 value={recipeInstructions}
                 rows={4}
-                defaultValue="Instructions"
                 onChange={handleChangeTextBoxes}
+                {...formik.getFieldProps("recipeInstructions")}
               />
             </div>
-          </Box>
-          <Box>
-            <div>
-              <Button variant="contained" onClick={handleClick}>
+            {formik.touched.recipeInstructions &&
+            formik.errors.recipeInstructions ? (
+              <Alert severity="error">{formik.errors.recipeInstructions}</Alert>
+            ) : null}
+          </Grid>
+          <Grid
+            container
+            justifyContent={"center"}
+            itemitem
+            md={12}
+            sm={12}
+            xs={12}
+          >
+            <div style={{ paddingTop: 20 }}>
+              <Button
+                variant="contained"
+                onClick={handleClick}
+                disabled={!formik.isValid || !validated}
+              >
                 Click to submit recipe
               </Button>
             </div>
-          </Box>
+          </Grid>
         </Container>
       </form>
     </>
