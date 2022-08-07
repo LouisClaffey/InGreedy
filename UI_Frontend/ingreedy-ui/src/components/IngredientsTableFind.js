@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -497,7 +496,7 @@ export default function IngredientsTableFind() {
             sm={12}
             xs={12}
           >
-            <div style={{ paddingTop: 15 }}>
+            <div style={{ paddingTop: 15, marginBottom: "5rem" }}>
               <Button
                 variant="contained"
                 onClick={handleClick}

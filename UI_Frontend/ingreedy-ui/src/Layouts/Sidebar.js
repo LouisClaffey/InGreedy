@@ -164,18 +164,3 @@ export default function Sidebar() {
     </Box>
   );
 }
-
-{
-  /* <List>
-{["Submit Recipe", "Find Recipe"].map((text, index) => (
-  <ListItem key={text} disablePadding>
-    <ListItemButton>
-      <ListItemIcon>
-        {index % 2 === 0 ? <DinnerDiningIcon /> : <SearchIcon />}
-      </ListItemIcon>
-      <ListItemText primary={text} />
-    </ListItemButton>
-  </ListItem>
-))}
-</List> */
-}

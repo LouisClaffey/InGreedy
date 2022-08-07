@@ -1,11 +1,7 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Checkbox from "@mui/material/Checkbox";
 import { Container } from "@mui/system";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
@@ -14,12 +10,7 @@ import axios from "axios";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { Grid } from "@mui/material";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import MainHomepage from "../Layouts/MainHomepage";
-import { ThemeProvider } from "@emotion/react";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Toolbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Alert } from "@mui/material";
@@ -579,7 +570,7 @@ export default function IngredientsTableSubmit() {
             <div onChange={(e) => setInstructions(e.target.value)}>
               <TextField
                 id="outlined-multiline-static"
-                label="Instructions"
+                placeholder="Instructions"
                 multiline
                 name="recipeInstructions"
                 value={recipeInstructions}
@@ -601,7 +592,7 @@ export default function IngredientsTableSubmit() {
             sm={12}
             xs={12}
           >
-            <div style={{ paddingTop: 20 }}>
+            <div style={{ paddingTop: 20, marginBottom: "5rem" }}>
               <Button
                 variant="contained"
                 onClick={handleClick}

@@ -1,7 +1,6 @@
-import { ThemeProvider } from "@emotion/react";
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Typography, createTheme, Toolbar } from "@mui/material";
+import { Typography, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
@@ -22,7 +21,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import Recipes from "../components/RecipeHomepage";
-import Grid from "@mui/material/Grid";
+import { Container } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import MobileNavHome from "./MobileNavHome";
+import AuthenticationService from "../Authentication/AuthenticationService";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const drawerWidth = 240;
 
@@ -75,6 +78,7 @@ export default function MainHomepage() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const navToSubmit = () => {
     navigate("/users/submit");
@@ -88,6 +92,11 @@ export default function MainHomepage() {
     navigate("/users");
   };
 
+  const navLogout = () => {
+    AuthenticationService.logout();
+    navigate("/");
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -98,76 +107,90 @@ export default function MainHomepage() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            InGreedy
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Grid container item sm={2}>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
+      {isMobile ? (
+        <MobileNavHome />
+      ) : (
+        <>
+          <CssBaseline />
+          <AppBar position="fixed" open={open}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: "none" }) }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap component="div">
+                InGreedy
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            sx={{
               width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemButton onClick={navToSubmit}>
-                <ListItemIcon>{<DinnerDiningIcon />}</ListItemIcon>
-                <ListItemText primary="Submit Recipe" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton onClick={navToFind}>
-                <ListItemIcon>{<SearchIcon />}</ListItemIcon>
-                <ListItemText primary="Find Recipe" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemButton onClick={navToHome}>
-                <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Drawer>
-      </Grid>
-      <Main open={open}>
-        <DrawerHeader />
-        <Recipes></Recipes>
-      </Main>
+              flexShrink: 0,
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+            variant="persistent"
+            anchor="left"
+            open={open}
+          >
+            <DrawerHeader>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
+            <List>
+              <ListItem>
+                <ListItemButton onClick={navToSubmit}>
+                  <ListItemIcon>{<DinnerDiningIcon />}</ListItemIcon>
+                  <ListItemText primary="Submit Recipe" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton onClick={navToFind}>
+                  <ListItemIcon>{<SearchIcon />}</ListItemIcon>
+                  <ListItemText primary="Find Recipe" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+            <Divider />
+            <List>
+              <ListItem>
+                <ListItemButton onClick={navToHome}>
+                  <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem>
+                <ListItemButton onClick={navLogout}>
+                  <ListItemIcon>{<LogoutIcon />}</ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Drawer>
+          <Main open={open}>
+            <DrawerHeader />
+            <Container fixed>
+              <Recipes></Recipes>
+            </Container>
+          </Main>
+        </>
+      )}
     </Box>
   );
 }

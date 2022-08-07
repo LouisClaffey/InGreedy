@@ -8,12 +8,12 @@ import {
   Toolbar,
   Typography,
   TextField,
-  Box,
+  Grid,
   Button,
-  Container,
 } from "@mui/material";
+import { Alert } from "@mui/material";
 
-export default function LoginComponent(props) {
+export default function LoginComponent() {
   const navigate = useNavigate();
 
   const [hasLoginFailed, setHasLoginFailed] = useState(false);
@@ -34,8 +34,6 @@ export default function LoginComponent(props) {
       };
     });
   };
-
-  console.log(formValue);
 
   const loginClicked = () => {
     AuthenticationService.executeJwtAuthenticationService(username, password)
@@ -61,22 +59,25 @@ export default function LoginComponent(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="sm">
-        <Typography variant="h3" color="inherit" noWrap>
-          Login
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div className="container">
-            {hasLoginFailed && (
-              <div style={{ color: "red" }}>Invalid Credentials</div>
-            )}
+      <Grid
+        container
+        item
+        direction="column"
+        justify="center"
+        alignItems="center"
+        xs={12}
+        style={{ textAlign: "center", padding: 10 }}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h3">Login</Typography>
+        </Grid>
+        <div>
+          {hasLoginFailed && (
+            <Grid item xs={12} style={{ padding: 10 }}>
+              <Alert severity="error">Invalid Credentials</Alert>
+            </Grid>
+          )}
+          <Grid item xs={12} style={{ padding: 10 }}>
             <TextField
               name="username"
               label="username"
@@ -86,6 +87,8 @@ export default function LoginComponent(props) {
               value={username}
               onChange={handleChange}
             />
+          </Grid>
+          <Grid item xs={12} style={{ padding: 10 }}>
             <TextField
               name="password"
               type="password"
@@ -96,12 +99,18 @@ export default function LoginComponent(props) {
               value={password}
               onChange={handleChange}
             />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            style={{ padding: 10, marginLeft: "auto", marginRight: "auto" }}
+          >
             <Button onClick={loginClicked} variant="contained">
               login
             </Button>
-          </div>
-        </Box>
-      </Container>
+          </Grid>
+        </div>
+      </Grid>
     </>
   );
 }
