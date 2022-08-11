@@ -19,5 +19,5 @@ There are two password / username combinations which will work
 1) username = ingreedy, password = test
 2) username = liam, password= password
 
-To view a deployed version of the app without login see - https://ingreedy.vercel.app/
+To view a deployed version of the app without login see - https://ingreedy.vercel.app/ (it may take some time for data to load)
 
