@@ -23,15 +23,17 @@ public class RecipeController {
         return service.listAllReverse();
     }
 
+    @PostMapping(path = "recipes")
+    public void add(@RequestBody Recipes recipe){
+        service.save(recipe);
+    }
+
+    /** this code will delete the latest submitted recipe
+     * due to time constraints was not fully implemented */
     @DeleteMapping(path ="users/home")
     public List<Recipes> theNewList(){
         service.delete();
         return service.listAllReverse();
-    }
-
-    @PostMapping(path = "recipes")
-    public void add(@RequestBody Recipes recipe){
-        service.save(recipe);
     }
 
 /** this function would be used for getting specific recipes
