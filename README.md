@@ -4,7 +4,10 @@ HDSDEV project
 To run this project locally, you can clone this repository to your local directory and run the springboot application to start the server. Then you can run the front end code via npm start through your terminal in your IDE of choice.
 The back-end code is in the 'Backend' folder and front end is in the 'UI_Frontend'.
 
-Backend configuration: 
+Backend:
+To run, navigate to HDSDEV_Project\Backend\hdsdevproject\src\main\java\com\ingreedy\hdsdevproject and run the HdsdevprojectApplication.java file.
+
+database configuration: 
 This project uses the h2 database in test mode, which should load and persist on application run. If you need to, you can login to the database via http://localhost:8080/h2-console
 spring.datasource.username=sa
 spring.datasource.password=password
