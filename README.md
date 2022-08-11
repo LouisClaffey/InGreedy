@@ -16,6 +16,7 @@ spring configuration can be found in application.properties file in resources fo
 
 Front-End:
 Open the folder: InGreedy\UI_Frontend\ingreedy-ui in your IDE
+run npm install in your IDE terminal
 run npm start in your IDE terminal 
 
 Logging in to the application: 
