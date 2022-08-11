@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import { ContactlessOutlined } from "@material-ui/icons";
 
 export default function IngredientsTableSubmit() {
   const [formValue, setFormValue] = useState({
@@ -48,6 +49,8 @@ export default function IngredientsTableSubmit() {
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState("");
   const [validated, setValidated] = useState(false);
+  const [recipeArr, setRecipeArr] = useState([]);
+  const [noneArr, setNoneArr] = useState([]);
 
   const recipe = {
     title,
@@ -58,6 +61,15 @@ export default function IngredientsTableSubmit() {
     fruits,
     instructions,
   };
+
+  useEffect(() => {
+    setRecipeArr([grains, proteins, vegetables, dairies, fruits]);
+  }, [grains, proteins, vegetables, dairies, fruits]);
+
+  useEffect(() => {
+    let result = recipeArr.filter((word) => word === "none");
+    setNoneArr(result);
+  }, [recipeArr]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -134,6 +146,12 @@ export default function IngredientsTableSubmit() {
           >
             Choose an option from each category
           </Typography>
+          <Typography
+            variant="subtitle2"
+            style={{ textAlign: "center", opacity: 0.5, marginTop: 10 }}
+          >
+            You can only choose 'none' 3 times
+          </Typography>
           <Grid
             container
             justifyContent="center"
@@ -180,8 +198,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="oats"
-                      value="oats"
+                      label="seeds"
+                      value="seeds"
                       labelPlacement="top"
                     />
                   </Item>
@@ -190,8 +208,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="quinoa"
-                      value="quinoa"
+                      label="cereal"
+                      value="cereal"
                       labelPlacement="top"
                     />
                   </Item>
@@ -284,8 +302,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="chicken"
-                      value="chicken"
+                      label="poultry"
+                      value="poultry"
                       labelPlacement="top"
                     />
                   </Item>
@@ -328,8 +346,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="broccoli"
-                      value="broccoli"
+                      label="greens"
+                      value="greens"
                       labelPlacement="top"
                     />
                   </Item>
@@ -348,8 +366,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="onion"
-                      value="onion"
+                      label="bulbs"
+                      value="bulbs"
                       labelPlacement="top"
                     />
                   </Item>
@@ -358,8 +376,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="carrot"
-                      value="carrot"
+                      label="roots"
+                      value="roots"
                       labelPlacement="top"
                     />
                   </Item>
@@ -368,8 +386,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="turnip"
-                      value="turnip"
+                      label="legumes"
+                      value="legumes"
                       labelPlacement="top"
                     />
                   </Item>
@@ -596,7 +614,7 @@ export default function IngredientsTableSubmit() {
               <Button
                 variant="contained"
                 onClick={handleClick}
-                disabled={!formik.isValid || !validated}
+                disabled={!formik.isValid || !validated || noneArr.length > 3}
               >
                 Click to submit recipe
               </Button>

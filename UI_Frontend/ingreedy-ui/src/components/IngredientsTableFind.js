@@ -113,8 +113,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="oats"
-                      value="oats"
+                      label="seeds"
+                      value="seeds"
                       labelPlacement="top"
                     />
                   </Item>
@@ -123,8 +123,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="quinoa"
-                      value="quinoa"
+                      label="cereal"
+                      value="cereal"
                       labelPlacement="top"
                     />
                   </Item>
@@ -217,8 +217,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="chicken"
-                      value="chicken"
+                      label="poultry"
+                      value="poultry"
                       labelPlacement="top"
                     />
                   </Item>
@@ -261,8 +261,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="broccoli"
-                      value="broccoli"
+                      label="greens"
+                      value="greens"
                       labelPlacement="top"
                     />
                   </Item>
@@ -281,8 +281,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="onion"
-                      value="onion"
+                      label="bulbs"
+                      value="bulbs"
                       labelPlacement="top"
                     />
                   </Item>
@@ -291,8 +291,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="carrot"
-                      value="carrot"
+                      label="roots"
+                      value="roots"
                       labelPlacement="top"
                     />
                   </Item>
@@ -301,8 +301,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="turnip"
-                      value="turnip"
+                      label="legumes"
+                      value="legumes"
                       labelPlacement="top"
                     />
                   </Item>
