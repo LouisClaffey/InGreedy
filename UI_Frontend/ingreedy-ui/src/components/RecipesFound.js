@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import { Typography } from "@mui/material";
-import { Container } from "@mui/system";
 import { Grid } from "@mui/material";
 import axios from "axios";
 import { Paper } from "@mui/material";
@@ -12,6 +11,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
 
 export default function RecipesFound() {
   const Item = styled(Paper)(({ theme }) => ({

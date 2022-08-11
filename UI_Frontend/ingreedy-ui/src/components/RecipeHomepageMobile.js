@@ -6,6 +6,10 @@ import axios from "axios";
 import { Paper } from "@mui/material";
 import { styled } from "@mui/material";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 export default function RecipesMobile() {
   const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),

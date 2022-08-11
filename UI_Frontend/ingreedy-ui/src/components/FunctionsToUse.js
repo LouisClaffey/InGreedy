@@ -1,10 +1,15 @@
+/** the following is an example of how the delete function would have been implemented,
+ * due to time constraints the student did not implement this feature but plans on doing so
+ * in the future.
+ */
+
 export default function unused() {
   const [clicked, setClicked] = useState(false);
   const [deleteClicked, setDeleteClicked] = useState(false);
 
   useEffect(() => {
     if (deleteClicked === true) {
-      axios.delete("http://localhost:8080/newrecipes").then((response) => {
+      axios.delete("http://localhost:8080/users/home").then((response) => {
         const recipeResponse = response.data;
         setRecipes(recipeResponse);
       });

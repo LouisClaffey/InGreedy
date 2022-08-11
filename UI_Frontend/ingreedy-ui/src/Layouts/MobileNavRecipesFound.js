@@ -16,6 +16,10 @@ import {
 } from "@mui/material";
 import RecipesFoundMobile from "../components/RecipesFoundMobile";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 export default function MobileNavRecipesFound() {
   const navigate = useNavigate();
   const [value, setValue] = useState("");

@@ -1,6 +1,10 @@
 import axios from "axios";
 import { API_URL } from "./../Constants";
 
+/** https://github.com/in28minutes/todo-app/blob/master/todo-app/src/components/AuthenticationService.js
+ *  this code was used to implement loggin in service.
+ */
+
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = "authenticatedUser";
 
 class AuthenticationService {

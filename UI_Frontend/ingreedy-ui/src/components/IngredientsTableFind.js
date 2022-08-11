@@ -13,6 +13,10 @@ import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 export default function IngredientsTableFind() {
   const navigate = useNavigate();
 

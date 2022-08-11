@@ -10,9 +10,12 @@ import {
   TextField,
   Grid,
   Button,
-  Container,
 } from "@mui/material";
 import { Alert } from "@mui/material";
+
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
 
 export default function LoginComponent() {
   const navigate = useNavigate();

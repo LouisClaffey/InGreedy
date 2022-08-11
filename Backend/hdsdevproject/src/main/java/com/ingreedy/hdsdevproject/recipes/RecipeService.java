@@ -22,6 +22,10 @@ public class RecipeService {
         return (List<Recipes>) recipesReversed;
     }
 
+    /** this function although unused, will delete the latest recipe in the repository
+     * due to time constraints the student did not implement this feature
+     * see HDSDEV_Project\UI_Frontend\ingreedy-ui\src\components\FunctionsToUse.js*/
+
     public List<Recipes> delete(){
 
         List<Recipes> theList =  repo.findAll();

@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@emotion/react";
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Typography, Container, Toolbar } from "@mui/material";
@@ -24,6 +23,10 @@ import { useNavigate } from "react-router-dom";
 import RecipesFound from "../components/RecipesFound";
 import MobileNavRecipesFound from "./MobileNavRecipesFound";
 import { useMediaQuery } from "@mui/material";
+
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
 
 const drawerWidth = 240;
 

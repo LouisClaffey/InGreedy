@@ -16,7 +16,10 @@ import * as Yup from "yup";
 import { Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import { ContactlessOutlined } from "@material-ui/icons";
+
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
 
 export default function IngredientsTableSubmit() {
   const [formValue, setFormValue] = useState({

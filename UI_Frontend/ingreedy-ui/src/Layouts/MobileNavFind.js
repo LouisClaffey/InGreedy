@@ -16,6 +16,10 @@ import {
 } from "@mui/material";
 import IngredientsTableFind from "../components/IngredientsTableFind";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 export default function MobileNavFind() {
   const navigate = useNavigate();
   const [value, setValue] = useState("");

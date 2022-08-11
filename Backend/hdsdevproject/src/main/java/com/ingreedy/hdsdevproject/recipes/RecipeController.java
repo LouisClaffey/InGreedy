@@ -17,11 +17,6 @@ public class RecipeController {
     private RecipeService service;
     private Recipes recipe;
 
-/** return oldest first */
-//    @GetMapping(path = "users/recipes")
-//    public List<Recipes> list(){
-//        return service.listAll();
-//    }
 
     @GetMapping(path = "users/home")
     public List<Recipes> listReverse(){
@@ -39,7 +34,8 @@ public class RecipeController {
         service.save(recipe);
     }
 
-
+/** this function would be used for getting specific recipes
+ * due to time constraints this was not implemented */
 //    @GetMapping(path = "users/recipes/{id}")
 //    public ResponseEntity<Recipes> get(@PathVariable Integer id){
 //        try {
@@ -48,6 +44,12 @@ public class RecipeController {
 //        } catch(NoSuchElementException e){
 //            return new ResponseEntity<Recipes>(HttpStatus.NOT_FOUND);
 //        }
+//    }
+
+    /** return oldest first */
+//    @GetMapping(path = "users/recipes")
+//    public List<Recipes> list(){
+//        return service.listAll();
 //    }
 
 }

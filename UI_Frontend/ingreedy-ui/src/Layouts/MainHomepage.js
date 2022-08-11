@@ -27,6 +27,10 @@ import MobileNavHome from "./MobileNavHome";
 import AuthenticationService from "../Authentication/AuthenticationService";
 import LogoutIcon from "@mui/icons-material/Logout";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(

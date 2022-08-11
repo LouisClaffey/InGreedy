@@ -16,6 +16,10 @@ import {
 } from "@mui/material";
 import IngredientsTableSubmit from "../components/IngredientsTableSubmit";
 
+/** https://mui.com/material-ui/ components are used throughout this application,
+ *  with student making appropriate changes to fit their application.
+ */
+
 export default function MobileNavSubmit() {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
