@@ -429,8 +429,8 @@ export default function IngredientsTableFind() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="avocado"
-                      value="avocado"
+                      label="nuts"
+                      value="nuts"
                       labelPlacement="top"
                     />
                   </Item>

@@ -150,7 +150,7 @@ export default function IngredientsTableSubmit() {
             variant="subtitle2"
             style={{ textAlign: "center", opacity: 0.5, marginTop: 10 }}
           >
-            You can only choose 'none' 3 times
+            You can only choose 'none' 2 times
           </Typography>
           <Grid
             container
@@ -514,8 +514,8 @@ export default function IngredientsTableSubmit() {
                   <Item>
                     <FormControlLabel
                       control={<Radio />}
-                      label="avocado"
-                      value="avocado"
+                      label="nuts"
+                      value="nuts"
                       labelPlacement="top"
                     />
                   </Item>
@@ -614,7 +614,7 @@ export default function IngredientsTableSubmit() {
               <Button
                 variant="contained"
                 onClick={handleClick}
-                disabled={!formik.isValid || !validated || noneArr.length > 3}
+                disabled={!formik.isValid || !validated || noneArr.length > 2}
               >
                 Click to submit recipe
               </Button>
