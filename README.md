@@ -5,7 +5,7 @@ To run this project locally, you can clone this repository to your local directo
 The back-end code is in the 'Backend' folder and front end is in the 'UI_Frontend'.
 
 Backend:
-Open up InGreedy\Backend\hdsdevproject
+Open up InGreedy\Backend\hdsdevproject in an IDE capable of running java programming language.
 To run, navigate src\main\java\com\ingreedy\hdsdevproject and run the HdsdevprojectApplication.java file.
 
 database configuration: 
@@ -15,7 +15,7 @@ spring.datasource.password=password
 spring configuration can be found in application.properties file in resources folder.
 
 Front-End:
-Open the folder: InGreedy\UI_Frontend\ingreedy-ui in your IDE
+Open the folder: InGreedy\UI_Frontend\ingreedy-ui in your IDE.
 run npm install in your IDE terminal
 run npm start in your IDE terminal 
 
